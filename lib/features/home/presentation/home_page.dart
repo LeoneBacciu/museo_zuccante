@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
             return _buildLoading();
           }
           if (state is HomeLoaded) {
-            return _buildLoaded(state.rooms);
+            return _buildLoaded(state.items);
           }
           return Container();
         },
@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (context, index) => ListTile(
         leading: Image.network(items[index].poster),
         title: Text(items[index].title),
+        onTap: () => Navigator.pushNamed(context, '/item/${items[index].id}'),
       ),
     );
   }

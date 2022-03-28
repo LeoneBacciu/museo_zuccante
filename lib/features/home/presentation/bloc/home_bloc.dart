@@ -14,8 +14,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>((event, emit) async {
       if (event is HomeLoad) {
         emit(HomeLoading());
-        final rooms = await homeRepository.getItems();
-        rooms.fold(
+        final items = await homeRepository.getItems();
+        items.fold(
           (l) => emit(HomeLoaded(l)),
           (r) => emit(HomeError()),
         );
