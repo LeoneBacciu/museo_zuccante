@@ -20,4 +20,8 @@ class ItemLoaded extends ItemState {
   List<Object> get props => [item];
 }
 
-class ItemError extends ItemState {}
+class ItemError extends ItemState {
+  final Exception e;
+
+  const ItemError(this.e);
+}

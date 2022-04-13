@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ void main() async {
       ),
     );
   }, (e, s) {
-    print('Error: $e\n $s');
+    log('Error: $e\n $s');
   });
 }
 

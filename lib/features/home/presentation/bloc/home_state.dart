@@ -20,4 +20,9 @@ class HomeLoaded extends HomeState {
   List<Object> get props => [items];
 }
 
-class HomeError extends HomeState {}
+class HomeError extends HomeState {
+
+  final Exception e;
+
+  const HomeError(this.e);
+}

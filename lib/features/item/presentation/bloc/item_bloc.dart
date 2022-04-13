@@ -17,7 +17,7 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
         final item = await itemRepository.getItem(event.id);
         item.fold(
           (l) => emit(ItemLoaded(l)),
-          (r) => emit(ItemError()),
+          (r) => emit(ItemError(r.e)),
         );
       }
     });
