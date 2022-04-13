@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:museo_zuccante/features/home/presentation/bloc/home_bloc.dart';
+import 'package:museo_zuccante/features/home/presentation/components/custom_header_delegate.dart';
 import 'package:museo_zuccante/models/item.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: BlocConsumer<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeError) {
@@ -48,13 +48,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildLoaded(List<Item> items) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) => ListTile(
-        leading: Image.network(items[index].poster),
-        title: Text(items[index].title),
-        onTap: () => Navigator.pushNamed(context, '/item/${items[index].id}'),
-      ),
+    return CustomScrollView(
+      slivers: [
+        SliverPersistentHeader(
+          floating: true,
+          delegate: CustomHeaderDelegate(
+            height: 100,
+            child: Container(
+              child: TextField(),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              final item = items[index % items.length];
+              return ListTile(
+                leading: Image.network(item.poster),
+                title: Text(item.title),
+                onTap: () => Navigator.pushNamed(context, '/item/${item.id}'),
+              );
+            },
+            childCount: 100,
+          ),
+        ),
+      ],
     );
   }
 }
