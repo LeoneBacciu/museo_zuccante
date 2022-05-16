@@ -1,3 +1,5 @@
+import 'package:museo_zuccante/models/item_room.dart';
+
 class Room {
   String title;
   int floor;
@@ -5,6 +7,7 @@ class Room {
   String? pixelX;
   String? pixelY;
   String id;
+  List<Item> items;
 
   Room({
     required this.title,
@@ -13,6 +16,7 @@ class Room {
     this.pixelX,
     this.pixelY,
     required this.id,
+    required this.items,
   });
 
   Room.fromJson(Map<String, dynamic> json)
@@ -21,7 +25,8 @@ class Room {
         number = json['number'],
         pixelX = json['pixel_x'],
         pixelY = json['pixel_y'],
-        id = json['id'];
+        id = json['id'],
+        items = json['items'].map<Room>((e) => Item.fromJson(e)).toList();
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -31,6 +36,7 @@ class Room {
     data['pixel_x'] = pixelX;
     data['pixel_y'] = pixelY;
     data['id'] = id;
+    data['items'] = items;
     return data;
   }
 }
