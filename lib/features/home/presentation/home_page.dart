@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:museo_zuccante/core/colors.dart';
+import 'package:museo_zuccante/core/string_utils.dart';
 import 'package:museo_zuccante/features/home/presentation/bloc/home_bloc.dart';
 import 'package:museo_zuccante/features/home/presentation/components/custom_header_delegate.dart';
 import 'package:museo_zuccante/models/item.dart';
@@ -12,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String filter = '';
+
   @override
   void initState() {
     BlocProvider.of<HomeBloc>(context).add(HomeLoad());
@@ -53,25 +57,63 @@ class _HomePageState extends State<HomePage> {
         SliverPersistentHeader(
           floating: true,
           delegate: CustomHeaderDelegate(
-            height: 100,
-            child: Container(
-              child: TextField(),
+            height: 120,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 500),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Zuccante Museum",
+                        style: TextStyle(color: Palette.white, fontSize: 20),
+                      ),
+                      TextField(
+                        onChanged: (e) => setState(() => filter = e),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            fillColor: Palette.white,
+                            filled: true,
+                            hintText: 'Search...',
+                            prefixIcon: const Icon(Icons.search),
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 5)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final item = items[index % items.length];
-              return ListTile(
-                leading: Image.network(item.poster),
-                title: Text(item.title),
-                onTap: () => Navigator.pushNamed(context, '/item/${item.id}'),
-              );
-            },
-            childCount: 100,
+        TopVisitedList(items: items.where((e) => e.highlighted).toList()),
+        const SliverToBoxAdapter(
+          child: ListHeader(
+            title: "nEwS aNd ExIbItIoNs",
+            height: 60,
           ),
         ),
+        Builder(builder: (context) {
+          final itemsFiltered =
+              items.where((e) => e.title.icontains(filter)).toList();
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => HorizontalCard(item: itemsFiltered[index]),
+              childCount: itemsFiltered.length,
+            ),
+          );
+        }),
+        SliverToBoxAdapter(
+          child: Container(
+            height: 40,
+            color: Palette.primary,
+          ),
+        )
       ],
     );
   }

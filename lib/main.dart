@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Museo Zuccante',
       theme: ThemeData(
-        primarySwatch: Palette.primary,
+        primarySwatch: createMaterialColor(Palette.primary),
       ),
       home: const HomePage(),
       onGenerateRoute: (RouteSettings settings) {

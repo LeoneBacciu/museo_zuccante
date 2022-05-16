@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Palette {
-  static const primary = Colors.green;
+  static const primary = Color(0xFF162A16);
   static const background = Colors.black;
   static const surface1 = Color(0xFF121212);
   static const surface2 = Color(0xFF1A1A1A);

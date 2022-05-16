@@ -1,5 +1,5 @@
 class ApiConfig {
-  static const baseUrl = 'http://10.42.0.124/api/';
+  static const baseUrl = 'http://localhost/api/';
   static const roomsUrl = 'rooms/';
   static const itemsUrl = 'items/';
   static const companiesUrl = 'company/';
