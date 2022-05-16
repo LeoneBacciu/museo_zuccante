@@ -4,6 +4,9 @@ import 'package:museo_zuccante/core/colors.dart';
 import 'package:museo_zuccante/core/string_utils.dart';
 import 'package:museo_zuccante/features/home/presentation/bloc/home_bloc.dart';
 import 'package:museo_zuccante/features/home/presentation/components/custom_header_delegate.dart';
+import 'package:museo_zuccante/features/home/presentation/components/horizontal_card.dart';
+import 'package:museo_zuccante/features/home/presentation/components/list_header.dart';
+import 'package:museo_zuccante/features/home/presentation/components/top_visited_list.dart';
 import 'package:museo_zuccante/models/item.dart';
 
 class HomePage extends StatefulWidget {
