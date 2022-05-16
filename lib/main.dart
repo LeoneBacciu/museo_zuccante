@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +7,7 @@ import 'package:museo_zuccante/core/core_container.dart';
 import 'package:museo_zuccante/core/url_path.dart';
 import 'package:museo_zuccante/features/home/presentation/home_page.dart';
 import 'package:museo_zuccante/features/item/presentation/item_page.dart';
+import 'package:museo_zuccante/features/room/presentation/company_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ void main() async {
       ),
     );
   }, (e, s) {
-    log('Error: $e\n $s');
+    print('Error: $e\n $s');
   });
 }
 
@@ -63,6 +63,10 @@ class MyApp extends StatelessWidget {
     UrlPath(
       r'^\/item\/([\w-]+)$',
       (context, match) => ItemPage(id: match),
+    ),
+    UrlPath(
+      r'^\/company\/([\w-]+)$',
+      (context, match) => CompanyPage(id: match),
     ),
   ];
 }

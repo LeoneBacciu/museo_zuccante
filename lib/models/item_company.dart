@@ -1,4 +1,3 @@
-import 'package:museo_zuccante/models/company_item.dart';
 import 'package:museo_zuccante/models/room_item.dart';
 
 class Item {
@@ -9,7 +8,6 @@ class Item {
   bool highlighted;
   String body;
   Room room;
-  Company company;
   String id;
 
   Item({
@@ -20,7 +18,6 @@ class Item {
     required this.highlighted,
     required this.body,
     required this.room,
-    required this.company,
     required this.id,
   });
 
@@ -32,7 +29,6 @@ class Item {
         highlighted = json['highlighted'],
         body = json['body'],
         room = Room.fromJson(json['room']),
-        company = Company.fromJson(json['company']),
         id = json['id'];
 
   Map<String, dynamic> toJson() {
@@ -44,7 +40,6 @@ class Item {
     data['highlighted'] = highlighted;
     data['body'] = body;
     data['room'] = room.toJson();
-    data['company'] = company.toJson();
     data['id'] = id;
     return data;
   }

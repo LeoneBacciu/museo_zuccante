@@ -1,5 +1,4 @@
 import 'package:museo_zuccante/models/company_item.dart';
-import 'package:museo_zuccante/models/room_item.dart';
 
 class Item {
   String title;
@@ -8,7 +7,6 @@ class Item {
   String poster;
   bool highlighted;
   String body;
-  Room room;
   Company company;
   String id;
 
@@ -19,7 +17,6 @@ class Item {
     required this.poster,
     required this.highlighted,
     required this.body,
-    required this.room,
     required this.company,
     required this.id,
   });
@@ -31,7 +28,6 @@ class Item {
         poster = json['poster'],
         highlighted = json['highlighted'],
         body = json['body'],
-        room = Room.fromJson(json['room']),
         company = Company.fromJson(json['company']),
         id = json['id'];
 
@@ -43,7 +39,6 @@ class Item {
     data['poster'] = poster;
     data['highlighted'] = highlighted;
     data['body'] = body;
-    data['room'] = room.toJson();
     data['company'] = company.toJson();
     data['id'] = id;
     return data;

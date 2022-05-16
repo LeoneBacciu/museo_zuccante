@@ -8,6 +8,7 @@ class Palette {
   static const text = Colors.white;
   static const white = Colors.white;
   static const black = Colors.black;
+  static const grey = Colors.grey;
   static const transparent = Colors.transparent;
 }
 

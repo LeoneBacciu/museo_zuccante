@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomInkWell extends StatelessWidget {
   final Widget child;
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
   final double radius;
 
   const CustomInkWell(
-      {Key? key, required this.child, required this.onTap, this.radius = 4})
+      {Key? key, required this.child, this.onTap, this.radius = 4})
       : super(key: key);
 
   @override

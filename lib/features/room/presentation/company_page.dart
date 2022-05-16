@@ -2,32 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:museo_zuccante/core/colors.dart';
-import 'package:museo_zuccante/core/custom_chip.dart';
 import 'package:museo_zuccante/core/string_utils.dart';
 import 'package:museo_zuccante/features/item/presentation/bloc/item_bloc.dart';
-import 'package:museo_zuccante/features/item/presentation/components/header_delegate.dart';
-import 'package:museo_zuccante/models/item.dart';
+import 'package:museo_zuccante/features/room/presentation/components/header_delegate.dart';
+import 'package:museo_zuccante/features/room/presentation/bloc/company_bloc.dart';
+import 'package:museo_zuccante/models/company.dart';
 
-class ItemPage extends StatefulWidget {
+class CompanyPage extends StatefulWidget {
   final String id;
 
-  const ItemPage({Key? key, required this.id}) : super(key: key);
+  const CompanyPage({Key? key, required this.id}) : super(key: key);
 
   @override
-  _ItemPageState createState() => _ItemPageState();
+  _CompanyPageState createState() => _CompanyPageState();
 }
 
-class _ItemPageState extends State<ItemPage> {
+class _CompanyPageState extends State<CompanyPage> {
   @override
   void initState() {
-    BlocProvider.of<ItemBloc>(context).add(ItemLoad(widget.id));
+    BlocProvider.of<CompanyBloc>(context).add(CompanyLoad(widget.id));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<ItemBloc, ItemState>(
+      body: BlocConsumer<CompanyBloc, CompanyState>(
         listener: (context, state) {
           if (state is ItemError) {
             ScaffoldMessenger.of(context)
@@ -35,11 +35,11 @@ class _ItemPageState extends State<ItemPage> {
           }
         },
         builder: (context, state) {
-          if (state is ItemLoading) {
+          if (state is CompanyLoading) {
             return _buildLoading();
           }
-          if (state is ItemLoaded) {
-            return _buildLoaded(state.item);
+          if (state is CompanyLoaded) {
+            return _buildLoaded(state.room);
           }
           return Container();
         },
@@ -47,45 +47,16 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  Widget _buildLoaded(Item item) {
+  Widget _buildLoaded(Company company) {
     return CustomScrollView(
       slivers: [
         SliverPersistentHeader(
           pinned: true,
-          delegate: HeaderDelegate(item),
+          delegate: HeaderDelegate(company),
         ),
         SliverToBoxAdapter(
           child: Column(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: Palette.white,
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomChip(
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(item.company.poster),
-                      ),
-                      text: item.company.title,
-                      height: 50,
-                      onTap: () => Navigator.of(context).pushNamed('/company/${item.company.id}'),
-                    ),
-                    CustomChip(
-                      leading: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Icon(Icons.pin_drop),
-                      ),
-                      text: item.room.title,
-                      height: 50,
-                    ),
-                  ],
-                ),
-              ),
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -107,7 +78,7 @@ class _ItemPageState extends State<ItemPage> {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        MarkdownBody(data: item.body),
+                        MarkdownBody(data: company.body),
                       ],
                     ),
                   ),
@@ -117,7 +88,7 @@ class _ItemPageState extends State<ItemPage> {
                 padding: const EdgeInsets.symmetric(vertical: 18.0),
                 child: Center(
                   child: Text(
-                    "By ${item.author}",
+                    "By ${company}",
                     style: const TextStyle(
                         fontSize: 15, fontStyle: FontStyle.italic),
                   ),
